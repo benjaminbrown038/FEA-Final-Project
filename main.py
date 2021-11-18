@@ -71,6 +71,7 @@ if G==1:
 
     #defining the z axis
     Z = f(X, Y)
+    
     #creating the graphical space
     fig = plt.figure()
     ax = plt.axes(projection='3d')
@@ -125,7 +126,7 @@ else:
 
 
     
-    # creates an array of data using np.arange of size () then reshapes into a matrix using .reshape of size (x (,:by) y)
+    # Creates an array of data using np.arange of size () then reshapes into a matrix using .reshape of size (x (,:by) y)
     r=ri
     size=int(i*(ro-ri)+1)
     Tlist = []
