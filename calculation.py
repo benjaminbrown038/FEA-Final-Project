@@ -11,9 +11,10 @@ def heatmap2d(arr: np.ndarray):
     plt.colorbar()
     plt.show()
  
-# Defining the fuction and equation to be used
+# Defining the fuction and equation to be used for initial temperature 
 def f(x, y):
-    return (q*y)/(k*A)+Tf
+    Ti = (q*y)/(k*A)+Tf
+    return Ti
 
 # Physical scenario is applied to a rectangle or cylinder
 G=int(input('Rectangular(1) or Cylinder(2) '))
