@@ -51,30 +51,45 @@ if G==1:
     # input requested coordinates
     u = 1
     while u == 1:
+        # length of rectangle 
         xi = float(input('x coordinate: '))
+        # width of rectangle
         yi = float(input('y coordinate: '))
         
-        #equation for requested coordinates
+        #Temperature equation for fluid flow based on requested coordinates
         Tr = (Ti-((q*yi/(k*A))))
+        # print value of temperature 
         print('This is the temperature for the location you requested:',Tr)
+        # to calculation another temperature value for seperate initial temperature 
         o = input('Request another temperature?(Y/N)')
         if o == "Y":
             u = 1
         else:
             u = 0
 
-    #defining the x and y area of the graph, the 3rd variable is no.elements=variable-1
+    # defining the x and y area of the graph, the 3rd variable is no.elements=variable-1
+    # using numpy to create grid points based on user specified iterations that rely on user specified length and width 
+    # length coordinates  
     x = np.linspace(0, x, l)
+    # width coordinates
     y = np.linspace(0, y, w)
-
+    
+    # using numpy .meshgrid to create a 2d matrix of grid points
     #creating the x and y data ranges
     X, Y = np.meshgrid(x, y)
 
     #defining the z axis
+    # Z is for temperature values 
     Z = f(X, Y)
     
-    #creating the graphical space
+    # creating the graphical space
+    # figure object for a plot 
+    # create figure
     fig = plt.figure()
+    
+    # creating axes object for plot
+    # add more than one axis to figure
+    # projection creates a 3d plot
     ax = plt.axes(projection='3d')
 
     #creating the graph type and appearance
