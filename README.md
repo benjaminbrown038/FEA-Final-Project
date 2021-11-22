@@ -5,3 +5,6 @@ The ```main.py``` file contains code that represents the physcial scenarios pres
 
 The paper ```Using_machine_learning_for_computational_fluid_dynamics.pdf``` describes the break down of the equations and how the data is collected. 
 The equation is derived from physical principles and the equation is referred to as Fourier's Heat Equation.
+
+
+The file ```Presentation_for_GSU_Research_Symposium_Fluid_Analysis.pdf``` is the poster that Dr. Emil created and that I added content to and presented.  
