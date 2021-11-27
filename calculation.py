@@ -1,3 +1,8 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+import mpl_toolkits
+
 # Visualizing results
 def heatmap2d(arr: np.ndarray):
     plt.imshow(arr, cmap='viridis', aspect='auto')

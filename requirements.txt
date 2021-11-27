@@ -1,7 +1,5 @@
 # libraries needed for this application
 
 sympy
-mpl_toolkits
 numpy
 matplotlib
-math
