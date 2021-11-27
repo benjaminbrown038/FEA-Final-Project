@@ -41,3 +41,12 @@ To run:
 
 
 ```python3 calculation.py```
+
+
+
+Future work: 
+
+- Bring R code that Dr. Emil programmed back into this repo 
+
+
+- Feed data to a machine learning model
