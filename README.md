@@ -11,8 +11,10 @@ The equation is derived from physical principles and the equation is referred to
 
 The file ```Presentation_for_GSU_Research_Symposium_Fluid_Analysis.pdf``` is the poster that Dr. Emil created and that I added content to and presented.  
 
+ 
 
-Running: 
+To run:
 
-
-git clone 
+```git clone https://github.com/benjaminbrown038/FEA-Final-Project.git```
+```cd FEA-Final-Project```
+```python3 calculation.py```
