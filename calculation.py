@@ -128,10 +128,13 @@ else:
     #input requested coordinates
     u=1
     while u==1:
+        # the distance (from center) at which we will calculate temperature 
         rreq=float(input('Distance from ri: '))
-        # equation for requested coordinates
+        # temperature for requested location
         Tr=Ti-(q*np.log(rreq/ri))/(2*pi*L*k)
+        # show user the temperature for the distance from center of hollow cylinder
         print('This is the temperature for the location you requested:',Tr)
+        # Another temperature value 
         o=input('Request another temperature?(Y/N)')
         if o=="Y":
             u=1
