@@ -141,15 +141,22 @@ else:
 
     
     # Creates an array of data using np.arange of size () then reshapes into a matrix using .reshape of size (x (,:by) y)
-    r=ri
+    r = ri
+    # size of interval range to create matrix depending number of iterations on one unit length 
     size=int(i*(ro-ri)+1)
+    # list of temperature values along grid 
     Tlist = []
+    # condition as long as inner radius is less than outer radius (checking user input) 
     while r <= ro:
+        # calculating temperature based on Fourrier's equation
         T = Ti-(q*np.log(r/ri))/(2*pi*L*k)
+        # append temperature values to list to mimick temperature values on 2d surface
         Tlist.append(T)
+        # updating r values 
         r=r+(1/i)
-    
+    # creating an array of temperature values 
     Tarray =  np.array(Tlist)
+    # reshaping the array of temperature values into 
     Tmatrix = Tarray.reshape(1,size)
-    #print(Tmatrix)
+    # Display results using function at top of script
     heatmap2d(Tmatrix)
