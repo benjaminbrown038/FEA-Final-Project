@@ -1,11 +1,3 @@
-
-# Necessary libraries for solution
-from sympy.matrices import Matrix
-from mpl_toolkits import mplot3d
-import numpy as np
-import matplotlib.pyplot as plt
-import math
-
 # Visualizing results
 def heatmap2d(arr: np.ndarray):
     plt.imshow(arr, cmap='viridis', aspect='auto')
