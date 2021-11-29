@@ -1,14 +1,55 @@
+# include corresponding units (normalizing the data) for user's inputs 
+
+'''
+This script will run in a terminal.
+
+parameters: <int> 1 or 2. Integers specify geometry (rectangle or cylinder) of heat problem (equations)
+            
+            If 1 (rectangle) 
+                parameters: <int> Material's conductivity
+                            <int> width
+                            <int> length
+                            <int> depth
+                            <int> number of intervals 
+                            <int> Initial Temperature (cold)
+                            <int> Final Temperature (heat)
+                            <int> specific x-coordinate for requested temperature 
+                            <int> specific y-coordinate for requested temperature 
+                
+                returns:    <int> Temperature value for requested location
+               
+            If 2 (cylinder)
+                parameters: <int> inner radius 
+                            <int> outer radius 
+                            <int> length 
+                            <int> outer temperature
+                            <int> material's conductivity (how well it retains heat)
+                            <int> number of intervals
+                 
+                 returns:   <int> Temperature value for requested location
+               
+                   
+            
+returns: <int> Temperature value for requested location
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 import mpl_toolkits
 
+'''
+Function for visualizing the results of temperature values with respect to 2d conditions of geometry
+'''
 # Visualizing results
 def heatmap2d(arr: np.ndarray):
     plt.imshow(arr, cmap='viridis', aspect='auto')
     plt.colorbar()
     plt.show()
- 
+    
+ '''
+ Function for determining temperature within for rectangle after grid points are added for visualizing
+ '''
 # Defining the fuction and equation to be used for initial temperature 
 def f(x, y):
     Ti = (q*y)/(k*A)+Tf
@@ -17,6 +58,24 @@ def f(x, y):
 # Physical scenario is applied to a rectangle or cylinder
 G=int(input('Rectangular(1) or Cylinder(2) '))
 # rectangle equation
+
+'''
+Rectangular Conditions:
+
+parameters: <int> Material's conductivity
+            <int> width
+            <int> length
+            <int> depth
+            <int> number of intervals 
+            <int> Initial Temperature (cold)
+            <int> Final Temperature (heat)
+            <int> specific x-coordinate for requested temperature 
+            <int> specific y-coordinate for requested temperature 
+                
+returns:    <int> Temperature value for requested location
+
+'''
+
 if G==1:
  
     #insert user defined parameters
@@ -45,14 +104,18 @@ if G==1:
 
     # Heat flux (W/m^2) 
     q = k*A*(Ti -Tf)/y
+    # creating truth condition
+    u = 1
+'''
+
+'''
 
     # input requested coordinates
-    u = 1
-    while u == 1:
+    while u=1:
         # length of rectangle 
-        xi = float(input('x coordinate: '))
+        xi = float(input('x coordinate for temperature within body: '))
         # width of rectangle
-        yi = float(input('y coordinate: '))
+        yi = float(input('y coordinate for temperature within body: '))
         
         #Temperature equation for fluid flow based on requested coordinates
         Tr = (Ti-((q*yi/(k*A))))
@@ -65,6 +128,10 @@ if G==1:
         else:
             u = 0
 
+'''
+Plotting results based on rectangular physics problem
+
+'''
     # defining the x and y area of the graph, the 3rd variable is no.elements=variable-1
     # using numpy to create grid points based on user specified iterations that rely on user specified length and width 
     # length coordinates  
@@ -98,7 +165,21 @@ if G==1:
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('z');
+    
+    
+'''    
+Conditions for a Cylindrical geometry for finding temperature (fluids-heat) values.
 
+parameters: <int> inner radius 
+            <int> outer radius 
+            <int> length 
+            <int> outer temperature
+            <int> material's conductivity (how well it retains heat)
+            <int> number of intervals
+                 
+returns:   <int> Temperature value for requested location
+
+''''
 # physical scenario for a hollow cyclinder    
 else:
     #insert user defined parameters
@@ -119,14 +200,22 @@ else:
     
     # Pi and Heat transfer of hollow cyclinder
     pi = math.pi
+    # Heat transfer for a hollow cylinder based on above (user input) values
     q = 2*pi*L*k*((Ti-To)/np.log(ro/ri))
     
     # Print results
     #print('q = ' ,q)
     #print('To = ' ,Ti-(q*np.log(ro/ri))/(2*pi*L*k))
 
-    #input requested coordinates
+    # creating truth condition
     u=1
+    
+'''
+Asking user to specify the coordinates for which they want to know the temperature. 
+
+This is after temperature values are known among all grid points. 
+
+'''
     while u==1:
         # the distance (from center) at which we will calculate temperature 
         rreq=float(input('Distance from ri: '))
@@ -134,6 +223,10 @@ else:
         Tr=Ti-(q*np.log(rreq/ri))/(2*pi*L*k)
         # show user the temperature for the distance from center of hollow cylinder
         print('This is the temperature for the location you requested:',Tr)
+
+'''
+Option for additional values within coordinates
+'''
         # Another temperature value 
         o=input('Request another temperature?(Y/N)')
         if o=="Y":
@@ -141,8 +234,6 @@ else:
         else:
             u=0
 
-
-    
     # Creates an array of data using np.arange of size () then reshapes into a matrix using .reshape of size (x (,:by) y)
     r = ri
     # size of interval range to create matrix depending number of iterations on one unit length 
@@ -150,6 +241,11 @@ else:
     # list of temperature values along grid 
     Tlist = []
     # condition as long as inner radius is less than outer radius (checking user input) 
+
+'''
+1. Calculating temperature values along grid points 
+2. Store in a list 
+'''
     while r <= ro:
         # calculating temperature based on Fourrier's equation
         T = Ti-(q*np.log(r/ri))/(2*pi*L*k)
@@ -157,6 +253,12 @@ else:
         Tlist.append(T)
         # updating r values 
         r=r+(1/i)
+    
+'''
+1. Store results in an array 
+2. Append to a matrix
+3. Visualize matrix
+'''
     # creating an array of temperature values 
     Tarray =  np.array(Tlist)
     # reshaping the array of temperature values into 
