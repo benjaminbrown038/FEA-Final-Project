@@ -5,7 +5,7 @@ This script will run in a terminal.
 
 parameters: <int> 1 or 2. Integers specify geometry (rectangle or cylinder) of heat problem (equations)
             
-            If 1 (rectangle) 
+            1 
                 parameters: <int> Material's conductivity
                             <int> width
                             <int> length
@@ -18,7 +18,7 @@ parameters: <int> 1 or 2. Integers specify geometry (rectangle or cylinder) of h
                 
                 returns:    <int> Temperature value for requested location
                
-            If 2 (cylinder)
+            2 
                 parameters: <int> inner radius 
                             <int> outer radius 
                             <int> length 
@@ -47,17 +47,16 @@ def heatmap2d(arr: np.ndarray):
     plt.colorbar()
     plt.show()
     
- '''
- Function for determining temperature within for rectangle after grid points are added for visualizing
- '''
+'''
+Function for determining temperature within for rectangle after grid points are added for visualizing
+'''
 # Defining the fuction and equation to be used for initial temperature 
 def f(x, y):
     Ti = (q*y)/(k*A)+Tf
     return Ti
 
 # Physical scenario is applied to a rectangle or cylinder
-G=int(input('Rectangular(1) or Cylinder(2) '))
-# rectangle equation
+G = int(input('Rectangular(1) or Cylinder(2): '))
 
 '''
 Rectangular Conditions:
@@ -76,8 +75,10 @@ returns:    <int> Temperature value for requested location
 
 '''
 
-if G==1:
- 
+'''
+Gathering user inputs (rectangular data)
+'''
+if G == 1:
     #insert user defined parameters
     # material's conductivity
     k = float(input('k value '))
@@ -94,34 +95,39 @@ if G==1:
     # Cold temoerature
     Tf = float(input('Tcold '))
  
+'''
+Calculating temperature values based on user inputs
+'''
     # A is the surface area exposed to the heat
     A = z*x
     # interval equations
     # interval equation along x direction
-    l=int((i*x)+1)
+    l = int((i*x)+1)
     # interval equation along y direction
-    w=int((i*y)+1)
+    w = int((i*y)+1)
 
     # Heat flux (W/m^2) 
     q = k*A*(Ti -Tf)/y
     # creating truth condition
     u = 1
-'''
 
 '''
-
+Calculating temperature for specific locations based on user inputs
+'''
     # input requested coordinates
-    while u=1:
+    while u = 1:
         # length of rectangle 
         xi = float(input('x coordinate for temperature within body: '))
         # width of rectangle
         yi = float(input('y coordinate for temperature within body: '))
-        
-        #Temperature equation for fluid flow based on requested coordinates
+        # Temperature equation for fluid flow based on requested coordinates
         Tr = (Ti-((q*yi/(k*A))))
         # print value of temperature 
         print('This is the temperature for the location you requested:',Tr)
         # to calculation another temperature value for seperate initial temperature 
+'''
+Asking user if another temperature value is needed
+'''
         o = input('Request another temperature?(Y/N)')
         if o == "Y":
             u = 1
@@ -130,7 +136,6 @@ if G==1:
 
 '''
 Plotting results based on rectangular physics problem
-
 '''
     # defining the x and y area of the graph, the 3rd variable is no.elements=variable-1
     # using numpy to create grid points based on user specified iterations that rely on user specified length and width 
@@ -138,33 +143,27 @@ Plotting results based on rectangular physics problem
     x = np.linspace(0, x, l)
     # width coordinates
     y = np.linspace(0, y, w)
-    
     # using numpy .meshgrid to create a 2d matrix of grid points
-    #creating the x and y data ranges
+    # creating the x and y data ranges
     X, Y = np.meshgrid(x, y)
-
-    #defining the z axis
+    # defining the z axis
     # Z is for temperature values 
     Z = f(X, Y)
-    
     # creating the graphical space
     # figure object for a plot 
     # create figure
     fig = plt.figure()
-    
     # creating axes object for plot
     # add more than one axis to figure
     # projection creates a 3d plot
     ax = plt.axes(projection='3d')
-
     #creating the graph type and appearance
     ax.plot_surface(X, Y, Z, rstride=1, cstride=1,cmap='viridis',edgecolor='none')
     ax.plot_wireframe(X, Y, Z, color='black')
-
-    #axix settings
+    # axis settings
     ax.set_xlabel('x')
     ax.set_ylabel('y')
-    ax.set_zlabel('z');
+    ax.set_zlabel('Temperature');
     
     
 '''    
@@ -179,10 +178,14 @@ parameters: <int> inner radius
                  
 returns:   <int> Temperature value for requested location
 
-''''
+'''
+
+'''
+Gathering Cylindrical data 
+'''
 # physical scenario for a hollow cyclinder    
 else:
-    #insert user defined parameters
+    # insert user defined parameters
     # distance from center (closest)
     ri = float(input('Inner Radius '))
     # distance from center (furthest)
@@ -197,18 +200,18 @@ else:
     k = float(input('k value '))
     # Number of intervals per unit length
     i = float(input('Number of intervals per unit length '))
-    
     # Pi and Heat transfer of hollow cyclinder
     pi = math.pi
+    
     # Heat transfer for a hollow cylinder based on above (user input) values
     q = 2*pi*L*k*((Ti-To)/np.log(ro/ri))
     
     # Print results
-    #print('q = ' ,q)
-    #print('To = ' ,Ti-(q*np.log(ro/ri))/(2*pi*L*k))
+    # print('q = ' ,q)
+    # print('To = ' ,Ti-(q*np.log(ro/ri))/(2*pi*L*k))
 
     # creating truth condition
-    u=1
+    u = 1
     
 '''
 Asking user to specify the coordinates for which they want to know the temperature. 
@@ -216,35 +219,27 @@ Asking user to specify the coordinates for which they want to know the temperatu
 This is after temperature values are known among all grid points. 
 
 '''
-    while u==1:
+    while u == 1:
         # the distance (from center) at which we will calculate temperature 
-        rreq=float(input('Distance from ri: '))
+        rreq = float(input('Distance from ri: '))
         # temperature for requested location
-        Tr=Ti-(q*np.log(rreq/ri))/(2*pi*L*k)
+        Tr = Ti-(q*np.log(rreq/ri))/(2*pi*L*k)
         # show user the temperature for the distance from center of hollow cylinder
         print('This is the temperature for the location you requested:',Tr)
-
+            
 '''
 Option for additional values within coordinates
 '''
         # Another temperature value 
-        o=input('Request another temperature?(Y/N)')
-        if o=="Y":
-            u=1
+        o = input('Request another temperature?(Y/N)')
+        if o == "Y":
+            u = 1
         else:
-            u=0
-
-    # Creates an array of data using np.arange of size () then reshapes into a matrix using .reshape of size (x (,:by) y)
-    r = ri
-    # size of interval range to create matrix depending number of iterations on one unit length 
-    size=int(i*(ro-ri)+1)
-    # list of temperature values along grid 
-    Tlist = []
-    # condition as long as inner radius is less than outer radius (checking user input) 
+            u = 0
 
 '''
-1. Calculating temperature values along grid points 
-2. Store in a list 
+1. Calculating temperature values along cylindrical grid points 
+2. Append to a list 
 '''
     while r <= ro:
         # calculating temperature based on Fourrier's equation
@@ -252,16 +247,21 @@ Option for additional values within coordinates
         # append temperature values to list to mimick temperature values on 2d surface
         Tlist.append(T)
         # updating r values 
-        r=r+(1/i)
+        r = r+(1/i)
     
 '''
 1. Store results in an array 
 2. Append to a matrix
 3. Visualize matrix
 '''
+    # Creates an array of data using np.arange of size () then reshapes into a matrix using .reshape of size (x (,:by) y)
+    r = ri
+    Tlist = []
     # creating an array of temperature values 
     Tarray =  np.array(Tlist)
     # reshaping the array of temperature values into 
+    # size of interval range to create matrix depending number of iterations on one unit length 
+    size = int(i*(ro-ri)+1)
     Tmatrix = Tarray.reshape(1,size)
     # Display results using function at top of script
     heatmap2d(Tmatrix)
